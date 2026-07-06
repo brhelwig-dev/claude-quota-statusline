@@ -5,24 +5,10 @@ command -v jq >/dev/null 2>&1 || exit 0
 JQ_ELAPSED='
   def to_epoch: if .==null then null elif type=="number" then (if .>1e12 then ./1000 else . end) else (try fromdateiso8601 catch null) end;
   def clamppct: if . < 0 then 0 elif . > 100 then 100 else . end;
-  def wsecs(a;b):
-    if a >= b then 0
-    else (reduce range(0;9) as $i ({t:a, acc:0};
-      if .t >= b then .
-      else ((.t/86400)|floor) as $day
-        | (($day + 4) % 7) as $wd
-        | (.t - $day*86400) as $into
-        | (.t + (86400 - $into)) as $nm
-        | (if $nm > b then b else $nm end) as $se
-        | (if ($wd >= 1 and $wd <= 5) then ($se - .t) else 0 end) as $add
-        | {t:$se, acc:(.acc + $add)} end)).acc end;
   def elapsed5($now): (.resets_at | to_epoch) as $r
     | if $r == null then null else ((($now - ($r - 18000)) / 18000 * 100) | clamppct | floor) end;
   def elapsed7($now): (.resets_at | to_epoch) as $r
-    | if $r == null then null else
-        ($r - 604800) as $s | (if $now > $r then $r else $now end) as $nc
-        | wsecs($s; $r) as $tot
-        | (if $tot <= 0 then null else ((wsecs($s; $nc) / $tot) * 100 | clamppct | floor) end) end;
+    | if $r == null then null else ((($now - ($r - 604800)) / 604800 * 100) | clamppct | floor) end;
 '
 
 rl=$(printf '%s' "$input" | jq -c '.rate_limits // empty' 2>/dev/null)
