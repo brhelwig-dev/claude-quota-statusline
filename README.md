@@ -18,9 +18,9 @@ and a verdict:
 | **UNDER** | used is >5 pts below elapsed — you have headroom | green |
 | **on pace** | within 5 pts of elapsed | grey |
 
-`5h` elapsed is plain calendar time; `7d` counts **weekday seconds only**
-(Mon–Fri), so it tracks a 5-day work week rather than a raw 168h. `resets` is the
-wall-clock time until that window rolls over.
+Both windows use plain calendar time elapsed (`5h` over 18000s, `7d` over
+604800s) since usage counts against quota regardless of weekday or weekend.
+`resets` is the wall-clock time until that window rolls over.
 
 It also tees the real snapshot (with `elapsed_percentage`, `resets_at`
 normalized to epoch seconds) to `~/.local/state/claude-quota-guard/usage.json`,
