@@ -35,22 +35,22 @@ so companion tools that pause/resume around quota resets have exact reset times.
 
 ## Install
 
-**One-liner** (works when the repo is public):
+**One-liner:**
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/brhelwig/claude-quota-statusline/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/brhelwig-dev/claude-quota-statusline/main/install.sh | sh
 ```
 
 Pass options after `-s --`, e.g. replace an existing statusline:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/brhelwig/claude-quota-statusline/main/install.sh | sh -s -- --force
+curl -fsSL https://raw.githubusercontent.com/brhelwig-dev/claude-quota-statusline/main/install.sh | sh -s -- --force
 ```
 
-**From a clone** (works while the repo is private):
+**From a clone:**
 
 ```sh
-gh repo clone brhelwig/claude-quota-statusline
+git clone https://github.com/brhelwig-dev/claude-quota-statusline.git
 cd claude-quota-statusline
 ./install.sh
 ```

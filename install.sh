@@ -12,7 +12,7 @@ for arg in "$@"; do
     esac
 done
 
-RAW_BASE="${CLAUDE_QUOTA_RAW_BASE:-https://raw.githubusercontent.com/brhelwig/claude-quota-statusline/main}"
+RAW_BASE="${CLAUDE_QUOTA_RAW_BASE:-https://raw.githubusercontent.com/brhelwig-dev/claude-quota-statusline/main}"
 dest="$HOME/.claude/statusline-quota.sh"
 settings="$HOME/.claude/settings.json"
 
@@ -27,10 +27,10 @@ if [ ! -f "$src" ]; then
     cleanup="$tmp"
     if command -v curl >/dev/null 2>&1; then
         curl -fsSL "$RAW_BASE/statusline-quota.sh" -o "$tmp" \
-            || { echo "error: could not download statusline-quota.sh from $RAW_BASE (is the repo public?)" >&2; exit 1; }
+            || { echo "error: could not download statusline-quota.sh from $RAW_BASE" >&2; exit 1; }
     elif command -v wget >/dev/null 2>&1; then
         wget -qO "$tmp" "$RAW_BASE/statusline-quota.sh" \
-            || { echo "error: could not download statusline-quota.sh from $RAW_BASE (is the repo public?)" >&2; exit 1; }
+            || { echo "error: could not download statusline-quota.sh from $RAW_BASE" >&2; exit 1; }
     else
         echo "error: need curl or wget to fetch statusline-quota.sh (or run install.sh from a clone)" >&2
         exit 1
